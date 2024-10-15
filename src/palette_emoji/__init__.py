@@ -1,0 +1,1 @@
+from palette_emoji.run import run_async_function as run_async_function
