@@ -25,7 +25,7 @@ def reschedule(task: Task) -> None:
     ctx.reschedule(task)
 
 
-async def wait_until_rescheduled(yield_value: Any) -> outcome.Outcome[Any]:
+async def wait_until_rescheduled() -> outcome.Outcome[Any]:
     """
     waits until da reschedule
 
@@ -33,4 +33,4 @@ async def wait_until_rescheduled(yield_value: Any) -> outcome.Outcome[Any]:
     """
 
     task = get_current_task()
-    return await task.suspend(yield_value)
+    return await task.suspend()

@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import attr
 
-from palette_emoji.internals.task import WAIT_UNTIL_RESCHEDULED, Task
+from palette_emoji.internals.task import Task
 
 DARK_HISTORY: contextvars.ContextVar[Runner] = contextvars.ContextVar("fesdfdsadf")
 
@@ -34,17 +34,9 @@ class Runner:
                 ) from None
 
             self.current_task = recent
-            result = recent.step()
 
-            if result is None:
-                assert not recent.running, "(T⌓T)"
-
-            elif result == WAIT_UNTIL_RESCHEDULED:
-                # into the void ( ´ ▽ ` )ﾉ
-                pass
-
-            else:
-                raise ValueError("unexpected yield ╥﹏╥")
+            if (yielded := recent.step()):
+                raise ValueError(f"unexpected yield ╥﹏╥ don't send me a {yielded} please!")
 
         return cast(T, task.result)
 
